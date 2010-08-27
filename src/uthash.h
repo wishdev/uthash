@@ -891,6 +891,12 @@ do {                                                                            
 #define HASH_COUNT(head) HASH_CNT(hh,head) 
 #define HASH_CNT(hh,head) (head?(head->hh.tbl->num_items):0)
 
+#define HASH_FOREACH(hh,head,el)                                                 \
+    for(el=head;el;el=(el)->hh.next)
+
+#define HASH_FOREACH_SAFE(hh,head,el,tmp)                                        \
+  for((el)=(head);(el) && (tmp = (el)->hh.next, 1); (el) = tmp)
+
 typedef struct UT_hash_bucket {
    struct UT_hash_handle *hh_head;
    unsigned count;
